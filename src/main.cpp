@@ -35,7 +35,7 @@ void setup()
 int counter = 0;
 void loop()
 {
-  ble->write("" + counter);
+  ble->write("Test value:" + String(counter));
   delay(1000);
   counter++;
 }

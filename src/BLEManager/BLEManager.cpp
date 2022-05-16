@@ -53,8 +53,10 @@ void BLEManager::begin(String btDeviceName, connectionCallback *callback)
             BLECharacteristic::PROPERTY_NOTIFY |
             BLECharacteristic::PROPERTY_INDICATE);
 
+    BLEDescriptor *pDescriptor = new BLEDescriptor((uint16_t)0x2901); // Characteristic User Description
+    pDescriptor->setValue("air4me - air quality");
     pCharacteristic->setCallbacks(new MyCallbacks());
-    pCharacteristic->addDescriptor(new BLE2902());
+    pCharacteristic->addDescriptor(pDescriptor);
 }
 
 void BLEManager::start()
@@ -67,4 +69,5 @@ void BLEManager::start()
 void BLEManager::write(String message)
 {
     pCharacteristic->setValue(message.c_str());
+    pCharacteristic->notify();
 }
