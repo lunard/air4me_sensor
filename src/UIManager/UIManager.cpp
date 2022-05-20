@@ -34,8 +34,8 @@ void UIManager::updateUI(float tvoc, float eco2)
 
     M5.Lcd.setCursor(60, 40);
     M5.Lcd.setTextColor(YELLOW);
-    M5.Lcd.print(tvoc, 1);
+    M5.Lcd.print(tvoc, 0);
 
     M5.Lcd.setCursor(60, 100);
-    M5.Lcd.print(eco2, 1);
+    M5.Lcd.print(eco2, 0);
 }
