@@ -49,7 +49,9 @@ void setup()
 int counter = 0;
 void loop()
 {
-  ble->write("Test value:" + String(counter));
-  delay(1000);
+  sensor->getMeasure();
+  Serial.println("Measure: TVOC=" + String(sensor->measure.TVOC) + ", eCO2=" + String(sensor->measure.eCO2));
+  ble->write(String(sensor->measure.TVOC) + "##" + String(sensor->measure.eCO2));
+  delay(1500);
   counter++;
 }
