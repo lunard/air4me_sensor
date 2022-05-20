@@ -7,7 +7,7 @@
 UIManager *ui;
 BLEManager *ble;
 SensorManager *sensor;
-float BTL_MESSAGE_FREQUENCY = 0.1; // Hz
+float BTL_MESSAGE_FREQUENCY = 0.5; // Hz
 float MEASURE_FREQUENCY = 2;       // Hz
 
 static void bleConnectionCallback(boolean bleConnected)

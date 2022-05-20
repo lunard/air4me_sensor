@@ -26,14 +26,14 @@ class MyCallbacks : public BLECharacteristicCallbacks
 {
     void onRead(BLECharacteristic *pCharacteristic)
     {
-        M5.Lcd.println("onRead");
+        Serial.println("onRead");
     }
 
     void onWrite(BLECharacteristic *pCharacteristic)
     {
-        M5.Lcd.println("onWrite");
+
         std::string value = pCharacteristic->getValue();
-        M5.Lcd.println(value.c_str());
+        Serial.println("BLE read: " + String(value.c_str()));
     }
 };
 
@@ -53,8 +53,9 @@ void BLEManager::begin(String btDeviceName, connectionCallback *callback)
             BLECharacteristic::PROPERTY_NOTIFY |
             BLECharacteristic::PROPERTY_INDICATE);
 
-    BLEDescriptor *pDescriptor = new BLEDescriptor((uint16_t)0x2901); // Characteristic User Description
+    BLEDescriptor *pDescriptor = new BLE2902(); // Client Characteristic Configuration
     pDescriptor->setValue("air4me - air quality");
+    pCharacteristic->setNotifyProperty(true);
     pCharacteristic->setCallbacks(new MyCallbacks());
     pCharacteristic->addDescriptor(pDescriptor);
 }
