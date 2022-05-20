@@ -7,6 +7,8 @@
 UIManager *ui;
 BLEManager *ble;
 SensorManager *sensor;
+float BTL_MESSAGE_FREQUENCY = 0.1; // Hz
+float MEASURE_FREQUENCY = 2;       // Hz
 
 static void bleConnectionCallback(boolean bleConnected)
 {
@@ -46,12 +48,21 @@ void setup()
   }
 }
 
-int counter = 0;
+float elapsedTime = 0;
+float delayTime = (1000 / MEASURE_FREQUENCY);
 void loop()
 {
   sensor->getMeasure();
   Serial.println("Measure: TVOC=" + String(sensor->measure.TVOC) + ", eCO2=" + String(sensor->measure.eCO2));
-  ble->write(String(sensor->measure.TVOC) + "##" + String(sensor->measure.eCO2));
-  delay(1500);
-  counter++;
+
+  ui->updateUI(sensor->measure.TVOC, sensor->measure.eCO2);
+
+  delay(delayTime);
+  elapsedTime += delayTime;
+
+  if ((1000 / elapsedTime) == BTL_MESSAGE_FREQUENCY)
+  {
+    ble->write(String(sensor->measure.TVOC) + "##" + String(sensor->measure.eCO2));
+    Serial.println("Sent data via BLT");
+  }
 }

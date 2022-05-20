@@ -9,6 +9,7 @@ class UIManager
 public:
     void begin();
     void setStatusbar(String message, bool isError = false);
+    void updateUI(float tvoc, float eco2);
 };
 
 #endif
