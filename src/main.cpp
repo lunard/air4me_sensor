@@ -64,5 +64,6 @@ void loop()
   {
     ble->write(String(sensor->measure.TVOC) + "##" + String(sensor->measure.eCO2));
     Serial.println("Sent data via BLT");
+    elapsedTime = 0;
   }
 }
